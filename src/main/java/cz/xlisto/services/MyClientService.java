@@ -92,7 +92,16 @@ public class MyClientService {
     }
 
     /**
-     * Zobrazí všechny klienty s adresou a telefonními čísly. Výs rozdělí na stránky a použije filtr
+     * zobrazí jednoho klienta
+     * @param clientId
+     * @return
+     */
+    public ClientDTO getClient(Long clientId) {
+        return clientMapper.toDTO(clientRepository.getOne(clientId));
+    }
+
+    /**
+     * Zobrazí všechny klienty s adresou a telefonními čísly. Výpis rozdělí na stránky a použije filtr
      *
      * @param page
      * @param size

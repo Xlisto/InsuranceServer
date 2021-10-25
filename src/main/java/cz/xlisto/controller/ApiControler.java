@@ -74,8 +74,10 @@ public class ApiControler {
         myClientService.deleteClient(clientId);
     }
 
-
-
+    @GetMapping("client/{clientId}")
+    public ClientDTO getOneClient(@PathVariable("clientId") Long clientId) {
+        return myClientService.getClient(clientId);
+    }
 
     @GetMapping("/carcategories")
     public List<InsuranceCarCategoriesDTO> getCarCategories() {
@@ -114,5 +116,15 @@ public class ApiControler {
     public Long getCountInsurances() {
         return myCarService.getCountInsurances();
     }
+
+     @GetMapping("/insurancescar/{clientId}")
+    public List<InsuranceCarDTO> getIncuranceCarByClient(@PathVariable("clientId") Long clientId) {
+        return myCarService.getInsuranceCars(clientId);
+     }
+
+     @GetMapping("/cost/{enginePower}")
+    public InsuranceCarCategoriesDTO getPrice(@PathVariable("enginePower") Long enginePower){
+        return myCarService.getInsurancePrice(enginePower);
+     }
 
 }

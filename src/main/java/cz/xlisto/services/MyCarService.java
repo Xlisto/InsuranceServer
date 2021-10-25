@@ -97,7 +97,25 @@ public class MyCarService {
         insuranceCarRepository.deleteById(insuranceCar);
     }
 
+    /**
+     * Zobrazí pojištění patřící klientovi
+     * @param clientId
+     * @return
+     */
+    public List<InsuranceCarDTO> getInsuranceCars(Long clientId)  {
+        List<InsuranceCarDTO> insuranceCarDTOS = new ArrayList<>();
+        List<InsuranceCarEntity> insuranceCarEntites = insuranceCarRepository.findAllByClientId(clientId);
+        for(InsuranceCarEntity insuranceCarEntity: insuranceCarEntites) {
+            insuranceCarDTOS.add(insuranceCarMapper.toDTO(insuranceCarEntity));
+        }
+        return insuranceCarDTOS;
+    }
+
     public Long getCountInsurances() {
         return insuranceCarRepository.count();
+    }
+
+    public InsuranceCarCategoriesDTO getInsurancePrice(Long enginePower) {
+        return insuranceCarCategoriesMapper.toDTO(insuranceCarCategoriesRepository.findPriceByEnginePower(enginePower));
     }
 }
