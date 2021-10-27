@@ -31,7 +31,7 @@ public class ApiControler {
     @PostMapping("/phone/{clientId}")
     @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
     public List<PhoneDTO> addPhone(@PathVariable(value = "clientId") Long clientId,
-                         @RequestBody List<PhoneDTO> phoneDTOs) {
+                                   @RequestBody List<PhoneDTO> phoneDTOs) {
         return myClientService.addPhone(phoneDTOs, clientId);
     }
 
@@ -55,7 +55,7 @@ public class ApiControler {
 
     @PutMapping("/phone/{phoneId}")
     public PhoneDTO editPhone(@PathVariable(value = "phoneId") Long phoneId,
-                          @RequestBody PhoneDTO phoneDTO) {
+                              @RequestBody PhoneDTO phoneDTO) {
         return myClientService.editPhone(phoneDTO, phoneId);
     }
 
@@ -79,6 +79,8 @@ public class ApiControler {
         return myClientService.getClient(clientId);
     }
 
+
+
     @GetMapping("/carcategories")
     public List<InsuranceCarCategoriesDTO> getCarCategories() {
         return myCarService.getCarCategories();
@@ -91,14 +93,19 @@ public class ApiControler {
 
     @PutMapping("/carcategories/{carTypeId}")
     public InsuranceCarCategoriesDTO editCarCategory(@PathVariable("carTypeId") Long carCategoryId,
-                                @RequestBody InsuranceCarCategoriesDTO insuranceCarCategoriesDTO) {
+                                                     @RequestBody InsuranceCarCategoriesDTO insuranceCarCategoriesDTO) {
         InsuranceCarCategoriesDTO saved = myCarService.editCarCategory(insuranceCarCategoriesDTO, carCategoryId);
         return saved;
     }
 
+    @DeleteMapping("/carcategories/{carTypeId}")
+    public void removeCarCategory(@PathVariable("carTypeId") Long carCategoryId) {
+        myCarService.removeCarCategory(carCategoryId);
+    }
+
     @PostMapping("/car")
     public void addInsuranceCar(@RequestBody InsuranceCarDTO insuranceCarDTO) {
-        System.out.println("Date "+insuranceCarDTO.getStart());
+        System.out.println("Date " + insuranceCarDTO.getStart());
         myCarService.addInsuranceCar(insuranceCarDTO);
     }
 
@@ -117,14 +124,14 @@ public class ApiControler {
         return myCarService.getCountInsurances();
     }
 
-     @GetMapping("/insurancescar/{clientId}")
+    @GetMapping("/insurancescar/{clientId}")
     public List<InsuranceCarDTO> getIncuranceCarByClient(@PathVariable("clientId") Long clientId) {
         return myCarService.getInsuranceCars(clientId);
-     }
+    }
 
-     @GetMapping("/cost/{enginePower}")
-    public InsuranceCarCategoriesDTO getPrice(@PathVariable("enginePower") Long enginePower){
+    @GetMapping("/cost/{enginePower}")
+    public InsuranceCarCategoriesDTO getPrice(@PathVariable("enginePower") Long enginePower) {
         return myCarService.getInsurancePrice(enginePower);
-     }
+    }
 
 }

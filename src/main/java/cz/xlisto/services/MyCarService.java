@@ -9,6 +9,7 @@ import cz.xlisto.entity.InsuranceCarEntity;
 import cz.xlisto.entity.repository.InsuranceCarCategoriesRepository;
 import cz.xlisto.entity.repository.InsuranceCarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -48,7 +49,8 @@ public class MyCarService {
      */
     public List<InsuranceCarCategoriesDTO> getCarCategories() {
         List<InsuranceCarCategoriesDTO> result = new ArrayList<>();
-        for (InsuranceCarCategoriesEntity carCategories : insuranceCarCategoriesRepository.findAll()) {
+        for (InsuranceCarCategoriesEntity carCategories : insuranceCarCategoriesRepository
+                .findAll(Sort.by(Sort.Direction.ASC, "enginePower"))) {
             result.add(insuranceCarCategoriesMapper.toDTO(carCategories));
         }
         return result;
@@ -117,5 +119,9 @@ public class MyCarService {
 
     public InsuranceCarCategoriesDTO getInsurancePrice(Long enginePower) {
         return insuranceCarCategoriesMapper.toDTO(insuranceCarCategoriesRepository.findPriceByEnginePower(enginePower));
+    }
+
+    public void removeCarCategory(Long carCategoryId) {
+        insuranceCarCategoriesRepository.deleteById(carCategoryId);
     }
 }

@@ -7,6 +7,7 @@ import lombok.NonNull;
 import javax.persistence.*;
 
 @Entity(name = "clients")
+@Table(indexes = @Index(name = "nameUniqIndex", columnList = "pin", unique = true))
 @Data
 @NoArgsConstructor
 public class ClientEntity {
@@ -24,17 +25,15 @@ public class ClientEntity {
     @Column(name = "last_name")
     private String lastName;
 
+    @NonNull
+    @Column(name = "pin", length = 30)
+    private String pin;
+
     @OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL
-            )
+            cascade = CascadeType.ALL
+    )
     @JoinColumn(name = "address_id")
     private AddressEntity address;
 
-
-    /*@OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL
-    )
-    @JoinColumn(name = "phone_id")
-    private PhoneEntity phone;*/
 
 }

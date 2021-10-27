@@ -17,6 +17,8 @@ public class ClientDTO {
 
     private String lastName;
 
+    private String pin;
+
     private String street;
 
     private String houseNumber;

@@ -13,7 +13,8 @@ public interface PageableClientRepository extends PagingAndSortingRepository<Cli
 
     @Query(value = "SELECT c FROM clients c WHERE"
             +" (c.firstName = :#{#filter.getFirstName()} OR :#{#filter.getFirstName()} is null) AND"
-            +" (c.lastName = :#{#filter.getLastName()} OR :#{#filter.getLastName()} is null)"
+            +" (c.lastName = :#{#filter.getLastName()} OR :#{#filter.getLastName()} is null) AND"
+            +" (c.pin = :#{#filter.getPin()} OR :#{#filter.getPin()} is null)"
     )
     Page<ClientEntity> findFilteredAll(ClientFilter filter, Pageable pageable);
 }

@@ -60,6 +60,7 @@ public class MyClientService {
                 addPhone(phoneDTOs, saved.getId());
             }
         }
+        System.out.println(clientMapper.toDTO(saved));
         return clientMapper.toDTO(saved);
     }
 
