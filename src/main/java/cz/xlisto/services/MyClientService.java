@@ -14,9 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,6 +40,9 @@ public class MyClientService {
 
     @Autowired
     private PhoneMapper phoneMapper;
+
+    @Autowired
+    private MyCarService myCarService;
 
     private int maxPages;
 
@@ -94,6 +95,7 @@ public class MyClientService {
 
     /**
      * zobrazí jednoho klienta
+     *
      * @param clientId
      * @return
      */
@@ -210,6 +212,63 @@ public class MyClientService {
      */
     public Long getCountClients() {
         return pageableClientRepository.count();
+    }
+
+    public void createDemoUsers() {
+
+        List<InsuranceCarCategoriesDTO> insuranceCarCategoriesDTOS = new ArrayList<>();
+        insuranceCarCategoriesDTOS.add(new InsuranceCarCategoriesDTO(null, 0L, 893L));
+        insuranceCarCategoriesDTOS.add(new InsuranceCarCategoriesDTO(null, 1000L, 1156L));
+        insuranceCarCategoriesDTOS.add(new InsuranceCarCategoriesDTO(null, 1400L, 1488L));
+        insuranceCarCategoriesDTOS.add(new InsuranceCarCategoriesDTO(null, 1970L, 2569L));
+        insuranceCarCategoriesDTOS.add(new InsuranceCarCategoriesDTO(null, 2500L, 3698L));
+        insuranceCarCategoriesDTOS.add(new InsuranceCarCategoriesDTO(null, 3000L, 5498L));
+
+        for (InsuranceCarCategoriesDTO insuranceCarCategoriesDTO : insuranceCarCategoriesDTOS) {
+            myCarService.addInsuranceCarCategory(insuranceCarCategoriesDTO);
+        }
+
+        List<ClientDTO> clientDTOS = new ArrayList<>();
+        clientDTOS.add(new ClientDTO(null, "Petr", "Vomáčka", "801112/1234", "Kaštanová",
+                "25", "", "30556", "Praha", Arrays.asList(
+                new PhoneDTO(null, "+420606909333", null),
+                new PhoneDTO(null, "+420606909333", null)
+        )));
+
+        clientDTOS.add(new ClientDTO(null, "Jiří", "Králíček", "540125/756", "Růžová",
+                "675", "2", "39000", "Brno", Arrays.asList(
+                new PhoneDTO(null, "+420603505369", null),
+                new PhoneDTO(null, "+420733456987", null)
+        )));
+
+        clientDTOS.add(new ClientDTO(null, "Jan", "Kvasnička", "910512/5465", "Lipová",
+                "675", "", "42100", "Ostrava", Arrays.asList(
+                new PhoneDTO(null, "+420724567913", null),
+                new PhoneDTO(null, "+420724567914", null),
+                new PhoneDTO(null, "+420909102030", null)
+
+        )));
+
+        clientDTOS.add(new ClientDTO(null, "Jiřina", "Beranová", "915512/1567", "Květnatá",
+                "33", "", "11200", "Plzeň", Arrays.asList(
+                new PhoneDTO(null, "+420721258951", null)
+        )));
+
+        for (int i = 0; i < clientDTOS.size(); i++) {
+            clientDTOS.set(i, saveClient(clientDTOS.get(i)));
+        }
+
+        List<InsuranceCarDTO> insuranceCarDTOS = new ArrayList<>();
+
+        insuranceCarDTOS.add(new InsuranceCarDTO(null, new Date(), "1A2 4569", "Škoda", 1899L, clientDTOS.get(0).getClientId()));
+        insuranceCarDTOS.add(new InsuranceCarDTO(null, new Date(), "1C8 1559", "Ford", 1499L, clientDTOS.get(1).getClientId()));
+        insuranceCarDTOS.add(new InsuranceCarDTO(null, new Date(), "8S8 1736", "Trabant", 799L, clientDTOS.get(1).getClientId()));
+
+        for (InsuranceCarDTO insuranceCarDTO : insuranceCarDTOS) {
+            myCarService.addInsuranceCar(insuranceCarDTO);
+        }
+
+
     }
 
 

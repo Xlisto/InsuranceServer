@@ -1,5 +1,6 @@
 package cz.xlisto.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -34,11 +35,5 @@ public class AddressEntity {
     @NonNull
     @Column(length = 10)
     private String zip;
-
-    //Zatím nevím, bez toho funguje
-    /*@OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL,
-            mappedBy = "address")
-    private ClientEntity client;*/
 
 }

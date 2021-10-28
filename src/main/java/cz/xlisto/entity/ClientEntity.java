@@ -1,5 +1,6 @@
 package cz.xlisto.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -7,7 +8,7 @@ import lombok.NonNull;
 import javax.persistence.*;
 
 @Entity(name = "clients")
-@Table(indexes = @Index(name = "nameUniqIndex", columnList = "pin", unique = true))
+@Table(indexes = @Index(name = "pinUniqIndex", columnList = "pin", unique = true))
 @Data
 @NoArgsConstructor
 public class ClientEntity {

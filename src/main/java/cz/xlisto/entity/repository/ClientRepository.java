@@ -9,7 +9,5 @@ public interface ClientRepository extends JpaRepository<ClientEntity, Long> {
 
     List<ClientEntity> findAll();
 
-
-
     long count();
 }

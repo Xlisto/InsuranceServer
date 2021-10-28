@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
+@Table(indexes = @Index(name = "enginePowerUniqIndex", columnList = "engine_power", unique = true))
 @Entity (name = "insurance_car_categories")
 public class InsuranceCarCategoriesEntity {
 
