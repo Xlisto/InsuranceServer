@@ -34,9 +34,6 @@ public class InsuranceCarEntity {
     @Column(name = "engine_power")
     private Long enginePower;
 
-    /*@NonNull
-    private Long cost;*/
-
     @ManyToOne()
     @JoinColumn(name = "client_id")
     @OnDelete(action = OnDeleteAction.CASCADE)

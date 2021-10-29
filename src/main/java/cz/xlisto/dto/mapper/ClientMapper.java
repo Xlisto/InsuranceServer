@@ -9,7 +9,6 @@ import org.mapstruct.Mappings;
 @Mapper(componentModel = "spring", uses = {AddressMapper.class, PhoneMapper.class})
 public abstract class ClientMapper {
 
-
     @Mappings({
             @Mapping(target = "address.street", source = "street"),
             @Mapping(target = "address.house_number", source = "houseNumber"),
@@ -31,9 +30,4 @@ public abstract class ClientMapper {
             @Mapping(target = "city", source = "address.city")
     })
     public abstract ClientDTO toDTO(ClientEntity source);
-
-    /*public String getPhone(ClientDTO source) {
-        //System.out.println("Phone number " + source.toString());
-        return "xxxx";
-    }*/
 }

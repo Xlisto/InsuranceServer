@@ -23,5 +23,5 @@ public class AddressDTO {
 
     private String city;
 
-    private Integer zip;
+    private String zip;
 }

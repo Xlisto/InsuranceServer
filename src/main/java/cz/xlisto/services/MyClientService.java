@@ -66,6 +66,29 @@ public class MyClientService {
     }
 
     /**
+     * Upraví klienta, jeho adresu, telefonné čísla
+     *
+     * @param clientDTO
+     * @param clientId
+     * @return
+     */
+    public ClientDTO editClient(ClientDTO clientDTO, Long clientId) {
+        clientDTO.setClientId(clientId);
+        Optional<ClientEntity> clientEntityOptional = clientRepository.findById(clientId);
+        Long addressId = clientEntityOptional.get().getId();
+        ClientEntity clientEntity = clientMapper.toEntity(clientDTO);
+        clientEntity.getAddress().setId(addressId);
+        System.out.println(clientEntity.getAddress().getId());
+        System.out.println(clientDTO.getPhones());
+        for (PhoneDTO phoneDTO : clientDTO.getPhones()) {
+            editPhone(phoneDTO, phoneDTO.getPhoneId());
+            System.out.println(phoneDTO + " " + phoneDTO.getPhoneId());
+        }
+        ClientEntity saved = clientRepository.save(clientEntity);
+        return clientMapper.toDTO(saved);
+    }
+
+    /**
      * Přidá ke klientovy telefonní čísla
      *
      * @param phoneDTOs
@@ -160,29 +183,6 @@ public class MyClientService {
      */
     public void deletePhone(Long phoneId) {
         phoneRepository.deleteById(phoneId);
-    }
-
-    /**
-     * Upraví klienta, jeho adresu, telefonné čísla
-     *
-     * @param clientDTO
-     * @param clientId
-     * @return
-     */
-    public ClientDTO editClient(ClientDTO clientDTO, Long clientId) {
-        clientDTO.setClientId(clientId);
-        Optional<ClientEntity> clientEntityOptional = clientRepository.findById(clientId);
-        Long addressId = clientEntityOptional.get().getId();
-        ClientEntity clientEntity = clientMapper.toEntity(clientDTO);
-        clientEntity.getAddress().setId(addressId);
-        System.out.println(clientEntity.getAddress().getId());
-        System.out.println(clientDTO.getPhones());
-        for (PhoneDTO phoneDTO : clientDTO.getPhones()) {
-            editPhone(phoneDTO, phoneDTO.getPhoneId());
-            System.out.println(phoneDTO + " " + phoneDTO.getPhoneId());
-        }
-        ClientEntity saved = clientRepository.save(clientEntity);
-        return clientMapper.toDTO(saved);
     }
 
     /**

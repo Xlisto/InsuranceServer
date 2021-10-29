@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 
 @Entity(name = "addresses")
 @Data
@@ -22,10 +23,12 @@ public class AddressEntity {
 
     @NonNull
     @Column(length = 20)
+    @Pattern(regexp = "[\\d]*")
     private String registry_number;
 
     @NonNull
     @Column(length = 20)
+    @Pattern(regexp = "[\\d]+")
     private String house_number;
 
     @NonNull
@@ -34,6 +37,7 @@ public class AddressEntity {
 
     @NonNull
     @Column(length = 10)
+    @Pattern(regexp = "[\\d]{5}|[\\d]{3} [\\d]{2}")
     private String zip;
 
 }

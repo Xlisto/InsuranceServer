@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 
 @Entity(name = "clients")
 @Table(indexes = @Index(name = "pinUniqIndex", columnList = "pin", unique = true))
@@ -28,6 +29,7 @@ public class ClientEntity {
 
     @NonNull
     @Column(name = "pin", length = 30)
+    @Pattern(regexp = "[\\d]{6}/[\\d]{3,4}")
     private String pin;
 
     @OneToOne(fetch = FetchType.LAZY,
